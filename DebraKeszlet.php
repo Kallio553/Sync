@@ -46,7 +46,7 @@ $unasProducts = array();
 $unasProductsCount = count($unasXml->Product);
 for ($i = 0; $i < $unasProductsCount; $i++) {
 
-    $unasProducts["UnasCikkszam" . $i] = (String)$unasXml->Product[$i]->Sku; // Osszes termek cikkszama Unason
+    $unasProducts["UnasCikkszam" . $i] = (String)$unasXml->Product[$i]->Sku;
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -64,7 +64,6 @@ curl_close($ch);
 $debraXml = simplexml_load_string($debraProducts);
 //$debraXml = new SimpleXMLElement($debraProducts);
 
-// XML struktura letrehozasa
 $xmlBody = '<?xml version="1.0" encoding="UTF-8" ?>
 ';
 
@@ -75,10 +74,9 @@ for ($i = 0; $i < $debraProductsCount; $i++) {
 
     $debraProducts = array();
 
-    $debraProducts["Cikkszam"] = (String)$debraXml->product_stock[$i]->product_code; // Debra cikkszam
-    $debraProducts["Keszlet"] = (String)$debraXml->product_stock[$i]->stock; // Debra keszlet
+    $debraProducts["Cikkszam"] = (String)$debraXml->product_stock[$i]->product_code;
+    $debraProducts["Keszlet"] = (String)$debraXml->product_stock[$i]->stock;
 
-    // Csak azok a cikkszamok kellenek amik szerepelnek az Unas adatbazisban
     if (in_array($debraProducts["Cikkszam"], $unasProducts)) {
 
         $xmlBody .= '
